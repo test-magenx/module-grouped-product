@@ -24,7 +24,6 @@
             <actionGroup ref="DeleteProductUsingProductGridActionGroup" stepKey="deleteProduct">
                 <argument name="product" value="GroupedProduct"/>
             </actionGroup>
-            <actionGroup ref="ClearFiltersAdminDataGridActionGroup" stepKey="clearProductsGridFilters" after="deleteProduct"/>
         </after>
 
         <!-- Create product -->
@@ -38,6 +37,6 @@
         <magentoCLI command="cron:run --group=index" stepKey="runCronIndexer"/>
 
         <!--See related product in storefront-->
-        <amOnPage url="{{GroupedProduct.urlKey}}.html" stepKey="goToStorefront"/>
+        <amOnPage url="{{GroupedProduct.sku}}.html" stepKey="goToStorefront"/>
     </test>
 </tests>

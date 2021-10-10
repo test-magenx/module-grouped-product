@@ -562,7 +562,6 @@ class Grouped extends AbstractModifier
                             'fit' => true,
                             'label' => __('Thumbnail'),
                             'sortOrder' => 20,
-                            'labelVisible' => false,
                         ],
                     ],
                 ],
@@ -587,7 +586,6 @@ class Grouped extends AbstractModifier
                             'validation' => [
                                 'validate-number' => true,
                             ],
-                            'labelVisible' => false,
                         ],
                     ],
                 ],
@@ -603,8 +601,7 @@ class Grouped extends AbstractModifier
                             'elementTmpl' => 'Magento_GroupedProduct/components/position',
                             'sortOrder' => 90,
                             'fit' => true,
-                            'dataScope' => 'positionCalculated',
-                            'labelVisible' => false,
+                            'dataScope' => 'positionCalculated'
                         ],
                     ],
                 ],
@@ -663,7 +660,6 @@ class Grouped extends AbstractModifier
                         'fit' => $fit,
                         'label' => $label,
                         'sortOrder' => $sortOrder,
-                        'labelVisible' => false,
                     ],
                 ],
             ],

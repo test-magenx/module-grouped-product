@@ -37,31 +37,21 @@
             <argument name="product" value="$$createGroupedProduct$$"/>
         </actionGroup>
         <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
-        <actionGroup ref="AssertMessageInAdminPanelActionGroup" stepKey="deleteMessage">
-            <argument name="message" value="A total of 1 record(s) have been deleted."/>
-        </actionGroup>
+        <see selector="{{AdminCategoryMessagesSection.SuccessMessage}}" userInput="A total of 1 record(s) have been deleted." stepKey="deleteMessage"/>
         <!--Verify product on Product Page -->
-        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="amOnGroupedProductPage">
-            <argument name="productUrl" value="$$createGroupedProduct.custom_attributes[url_key]$$"/>
-        </actionGroup>
-        <actionGroup ref="StorefrontAssertPageNotFoundErrorOnProductDetailPageActionGroup" stepKey="seeWhoops">
-            <argument name="product" value="$$createGroupedProduct$$"/>
-        </actionGroup>
+        <amOnPage url="{{StorefrontProductPage.url($$createGroupedProduct.name$$)}}" stepKey="amOnGroupedProductPage"/>
+        <see selector="{{StorefrontProductInfoMainSection.productName}}" userInput="Whoops, our bad..." stepKey="seeWhoops"/>
         <!--Search for the product by sku-->
         <actionGroup ref="StoreFrontQuickSearchActionGroup" stepKey="searchByCreatedTerm">
             <argument name="query" value="$$createGroupedProduct.sku$$"/>
         </actionGroup>
         <!-- Should not see any search results -->
-       <actionGroup ref="AssertStorefrontProductNotOnSearchPageActionGroup" stepKey="dontSeeProduct">
-            <argument name="productSku" value="$$createGroupedProduct.sku$$"/>
-        </actionGroup>
-        <actionGroup ref="AssertStorefrontNoResultsMessageOnSearchPageActionGroup" stepKey="seeCantFindProductOneMessage"/>
+        <dontSee userInput="$$createGroupedProduct.sku$$" selector="{{StorefrontCatalogSearchMainSection.searchResults}}" stepKey="dontSeeProduct"/>
+        <see selector="{{StorefrontCatalogSearchMainSection.message}}" userInput="Your search returned no results." stepKey="seeCantFindProductOneMessage"/>
         <!-- Go to the category page that we created in the before block -->
-        <comment userInput="Comment is added to preserve the step key for backward compatibility" stepKey="onCategoryPage"/>
-        <actionGroup ref="AssertStorefrontProductAbsentOnCategoryPageActionGroup" stepKey="dontSeeProductInCategory">
-            <argument name="categoryUrlKey" value="$$createCategory.name$$"/>
-            <argument name="productName" value="$$createGroupedProduct.name$$"/>
-        </actionGroup>
-        <actionGroup ref="AssertStorefrontNoProductsFoundActionGroup" stepKey="seeEmptyProductMessage"/>
+        <amOnPage url="{{StorefrontCategoryPage.url($$createCategory.name$$)}}" stepKey="onCategoryPage"/>
+        <!-- Should not see the product -->
+        <dontSee userInput="$$createGroupedProduct.name$$" selector="{{StorefrontCategoryMainSection.productsList}}" stepKey="dontSeeProductInCategory"/>
+        <see selector="{{StorefrontCategoryMainSection.emptyProductMessage}}" userInput="We can't find products matching the selection." stepKey="seeEmptyProductMessage"/>
     </test>
 </tests>
