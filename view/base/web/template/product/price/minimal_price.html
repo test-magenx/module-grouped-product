@@ -8,17 +8,17 @@
     <div class="minimal-price">
         <span if="label"
               class="price-label"
-              text="label"></span>
+              text="label"/>
 
         <span class="price-container"
               css="getAdjustmentCssClasses($row())">
             <span class="price-wrapper price-including-tax"
                   data-price-amount=""
                   data-price-type=""
-                  html="getPriceUnsanitizedHtml($row())"></span>
+                  html="getPrice($row())"/>
 
             <each args="data: getAdjustments(), as: '$adj'">
-                <render args="$adj.getBody()"></render>
+                <render args="$adj.getBody()"/>
             </each>
         </span>
     </div>
